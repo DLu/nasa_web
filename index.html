@@ -7,7 +7,7 @@
 <script src="http://cdn.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-<script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
+<script src="ros3d.js"></script>
 
 <script>
   /**
@@ -16,7 +16,7 @@
   function init() {
     // Connect to ROS.
     var ros = new ROSLIB.Ros({
-      url : 'ws://brown:9090'
+      url : 'ws://54.88.41.156:9090'
     });
 
     // Create the main viewer.
@@ -35,7 +35,8 @@
       ros : ros,
       angularThres : 0.01,
       transThres : 0.01,
-      rate : 10.0
+      rate : 10.0,
+      fixedFrame : '/world'
     });
 
     // Setup the URDF client.
@@ -45,12 +46,38 @@
       path : 'http://resources.robotwebtools.org/',
       rootObject : viewer.scene
     });
+
+    //var urdfClient2 = new ROS3D.UrdfClient({
+    //  ros : ros,
+    //  tfClient : tfClient,
+    //  rootObject : viewer.scene,
+    //  param : '/taskboard_description'
+    //});
+
+    // Setup the marker client.
+    //var imClient = new ROS3D.InteractiveMarkerClient({
+     // ros : ros,
+     // tfClient : tfClient,
+     // topic : '/r2_teleop',
+      //camera : viewer.camera,
+      //rootObject : viewer.selectableObjects,
+      //path : 'http://resources.robotwebtools.org/'
+    //});
+  
+    // Setup the marker client.
+    var markerClient = new ROS3D.MarkerClient({
+      ros : ros,
+      tfClient : tfClient,
+      topic : '/visualization_marker',
+      rootObject : viewer.scene,
+  path : 'http://resources.robotwebtools.org/'
+
+    });
   }
 </script>
 </head>
 
 <body onload="init()">
-  <h1>Simple URDF Example</h1>
   <div id="urdf"></div>
 </body>
 </html>
