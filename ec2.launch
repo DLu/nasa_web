@@ -6,4 +6,11 @@
      <remap from="topic_ns" to="/r2_teleop" />
      <remap from="target_frame" to="world" />
     </node>
+    <node name="interactive_marker_proxy2" pkg="interactive_marker_proxy" 
+    	  type="proxy" output="screen">
+     <remap from="topic_ns" to="/affordance_template_server" />
+     <remap from="target_frame" to="world" />
+    </node>
+
+
 </launch>
