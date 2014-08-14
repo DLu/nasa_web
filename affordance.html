@@ -8,7 +8,6 @@
 <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 <script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
-<!--script src="ros3d.js"></script-->
 
 <script>
   /**
@@ -44,16 +43,8 @@
     var urdfClient = new ROS3D.UrdfClient({
       ros : ros,
       tfClient : tfClient,
-      //path : 'http://resources.robotwebtools.org/',
       rootObject : viewer.scene
     });
-
-    //var urdfClient2 = new ROS3D.UrdfClient({
-    //  ros : ros,
-    //  tfClient : tfClient,
-    //  rootObject : viewer.scene,
-    //  param : '/taskboard_description'
-    //});
 
     // Setup the marker client.
     var imClient = new ROS3D.InteractiveMarkerClient({
@@ -62,10 +53,9 @@
       topic : '/r2_teleop',
       camera : viewer.camera,
       rootObject : viewer.selectableObjects,
-      //path : 'http://resources.robotwebtools.org/'
     });
 
-  var imClient2 = new ROS3D.InteractiveMarkerClient({
+    var imClient2 = new ROS3D.InteractiveMarkerClient({
       ros : ros,
       tfClient : tfClient,
       topic : '/affordance_template_server',
@@ -73,21 +63,27 @@
       rootObject : viewer.selectableObjects,
     });
 
-  
-    // Setup the marker client.
-    var markerClient = new ROS3D.MarkerArrayClient({
-      ros : ros,
-      tfClient : tfClient,
-      topic : '/r2x/move_group/planned_path_visualization',
-      rootObject : viewer.scene,
-  //path : 'http://resources.robotwebtools.org/'
+    var buttons = ["start", "left", "rwnd", "right", "ffwd", "pause", "end"]
+    var path = "https://raw.githubusercontent.com/swhart115/affordance_templates/refactor/rviz_affordance_template_panel/resources/"
+    
+    var s = "";
+    for(b in buttons){
+        s += "<img src=\"" + path + buttons[b] + ".png\" width=\"50px\" onclick=\"button('" + buttons[b] + "')\" />\n";
 
-    });
+    }
+    document.getElementById("controls").innerHTML = s;
+
+
+  }
+
+  function button(s) {
+     alert(s);
   }
 </script>
 </head>
 
 <body onload="init()">
   <div id="urdf"></div>
+  <div id="controls"></div>
 </body>
 </html>
