@@ -8,7 +8,7 @@
 <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 <script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
-
+<script src="affordance.js"></script>
 <script>
   /**
    * Setup all visualization elements when the page is loaded.
@@ -63,27 +63,17 @@
       rootObject : viewer.selectableObjects,
     });
 
-    var buttons = ["start", "left", "rwnd", "right", "ffwd", "pause", "end"]
-    var path = "https://raw.githubusercontent.com/swhart115/affordance_templates/refactor/rviz_affordance_template_panel/resources/"
-    
-    var s = "";
-    for(b in buttons){
-        s += "<img src=\"" + path + buttons[b] + ".png\" width=\"50px\" onclick=\"button('" + buttons[b] + "')\" />\n";
-
-    }
-    document.getElementById("controls").innerHTML = s;
-
-
+    make_buttons();
+    populate_affordances('affordance_list', ['a', 'b']);
   }
 
-  function button(s) {
-     alert(s);
-  }
 </script>
 </head>
 
 <body onload="init()">
   <div id="urdf"></div>
+  <div id="affordance_list"></div>
   <div id="controls"></div>
+  <div id="options"><label for="steps">Steps:</label><input id="steps" size="2" value="1"/><label for="execute">Execute on Plan</label><input id="execute" type="checkbox"/>
 </body>
 </html>
