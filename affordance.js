@@ -56,13 +56,11 @@ function button(s) {
     var steps = parseInt(document.getElementById('steps').value);
     var eop = document.getElementById('execute').checked;
      
-    alert(steps + " " + eop + " " + s);
-    
   var request = new ROSLIB.ServiceRequest({
     affordances : ['Wheel'],
     ids : [0],
     type: s, 
-    end_effectors: ['left_arm', 'right_arm'],
+    end_effectors: ['left_hand', 'right_hand'],
     steps: steps, 
     execute: eop
   });
