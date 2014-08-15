@@ -1,5 +1,18 @@
 function on_check(name, value){
-    alert(name + " " + value);
+  if(value){
+    
+  var request = new ROSLIB.ServiceRequest({
+    affordance : name,
+    add : true
+  });
+
+  service1.callService(request, function(result) {
+    console.log('Result for service call on '
+      + service1.name
+      + ': '
+      + result.success);
+  });
+  }
 }
 
 var buttons = {"start":"GO_TO_START", "left":"PLAY_BACKWARD", "rwnd":"STEP_BACKWARD", "right":"PLAY_FORWARD", "ffwd":"STEP_FORWARD", "pause":"PAUSE", "end": "GO_TO_END"};
@@ -40,8 +53,26 @@ function populate_affordances(id, elements)
 }
 
 function button(s) {
-    var steps = document.getElementById('steps').value;
+    var steps = parseInt(document.getElementById('steps').value);
     var eop = document.getElementById('execute').checked;
-     alert(steps + " " + eop + " " + s);
+     
+    alert(steps + " " + eop + " " + s);
+    
+  var request = new ROSLIB.ServiceRequest({
+    affordances : ['Wheel'],
+    ids : [0],
+    type: s, 
+    end_effectors: ['left_arm', 'right_arm'],
+    steps: steps, 
+    execute: eop
+  });
+
+  service2.callService(request, function(result) {
+    console.log('Result for service call on '
+      + service2.name
+      + ': '
+      + result.success); } 
+  , function(err) { console.log('Err ' + err); });
+
 }
 

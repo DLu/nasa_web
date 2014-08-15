@@ -10,6 +10,10 @@
 <script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
 <script src="affordance.js"></script>
 <script>
+ 
+  var service1;
+  var service2;
+
   /**
    * Setup all visualization elements when the page is loaded.
    */
@@ -64,7 +68,27 @@
     });
 
     make_buttons();
-    populate_affordances('affordance_list', ['a', 'b']);
+      var listener = new ROSLIB.Topic({
+        ros : ros,
+        name : '/affordances',
+        messageType : 'affordance_ros_control/AffordanceList'
+      });
+
+      listener.subscribe(function(message) {
+        console.log('Received message on ' + listener.name);
+        populate_affordances('affordance_list', message.affordances);
+      });
+
+     service1 = new ROSLIB.Service({
+        ros : ros,
+        name : '/change_affordance',
+        serviceType : 'affordance_ros_control/ChangeAffordance'
+      });
+     service2 = new ROSLIB.Service({
+        ros : ros,
+        name : '/affordance_cmd',
+        serviceType : 'affordance_ros_control/AffordanceCommand'
+      });
   }
 
 </script>
