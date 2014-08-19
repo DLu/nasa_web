@@ -4,11 +4,10 @@
 <meta charset="utf-8" />
 
 <script src="http://cdn.robotwebtools.org/threejs/current/three.min.js"></script>
-<script src="http://cdn.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.min.js"></script>
+<script src="http://cdn.robotwebtools.org/threejs/current/ColladaLoader.min.js"></script>
 <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-<!--script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script-->
-<script src="ros3d.js"></script>
+<script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
 
 <script>
   /**
@@ -44,16 +43,9 @@
     var urdfClient = new ROS3D.UrdfClient({
       ros : ros,
       tfClient : tfClient,
-      //path : 'http://resources.robotwebtools.org/',
-      rootObject : viewer.scene
+      rootObject : viewer.scene,
+      loader: ROS3D.COLLADA_LOADER
     });
-
-    //var urdfClient2 = new ROS3D.UrdfClient({
-    //  ros : ros,
-    //  tfClient : tfClient,
-    //  rootObject : viewer.scene,
-    //  param : '/taskboard_description'
-    //});
 
     // Setup the marker client.
     var imClient = new ROS3D.InteractiveMarkerClient({
