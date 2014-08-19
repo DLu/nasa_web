@@ -8,6 +8,7 @@
 <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 <script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
+<script src="config.js"></script>
 <script src="affordance.js"></script>
 <script>
  
@@ -20,7 +21,7 @@
   function init() {
     // Connect to ROS.
     var ros = new ROSLIB.Ros({
-      url : 'ws://192.88.41.109:9090'
+      url : 'ws://' + IP + ':9090'
     });
 
     // Create the main viewer.
@@ -47,16 +48,19 @@
     var urdfClient = new ROS3D.UrdfClient({
       ros : ros,
       tfClient : tfClient,
-      rootObject : viewer.scene
+      rootObject : viewer.scene,
+      loader: ROS3D.COLLADA_LOADER,
+      path : MESH_URL
     });
 
-    // Setup the marker client.
+    // Setup an interactive marker client.
     var imClient = new ROS3D.InteractiveMarkerClient({
       ros : ros,
       tfClient : tfClient,
       topic : '/r2_teleop',
       camera : viewer.camera,
       rootObject : viewer.selectableObjects,
+      path : MESH_URL
     });
 
     var imClient2 = new ROS3D.InteractiveMarkerClient({
@@ -65,6 +69,7 @@
       topic : '/affordance_template_server',
       camera : viewer.camera,
       rootObject : viewer.selectableObjects,
+      path : MESH_URL
     });
 
     make_buttons();
@@ -90,7 +95,6 @@
         serviceType : 'affordance_ros_control/AffordanceCommand'
       });
   }
-
 </script>
 </head>
 
