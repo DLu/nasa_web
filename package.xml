@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>nasa_web</name>
+  <version>0.0.0</version>
+  <description>Configurations for running NASA demos with RWT</description>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>interactive_marker_proxy</run_depend>
+  <run_depend>rosbridge_server</run_depend>
+  <run_depend>tf2_web_republisher</run_depend>
+
+</package>
