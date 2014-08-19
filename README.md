@@ -11,3 +11,10 @@ nasa_web
 ## Get Missing Dependencies:
 `rosdep install nasa_web`
 
+## Setup Webserver
+We need to tell apache where to look for the files. We do this by softlinking the nasa_web folder. This makes the url slightly longer, but installation easier, for the moment. 
+
+`sudo ln -s /path/to/catkin_workspace/src/nasa_web/ /var/www/`
+
+## Configuring the HTML/Java
+In the file config.js, change the IP variable to be the IP address or hostname of the server. Do not put a http: or anything else but the address. We'll come back to the MESH_URL later. 
