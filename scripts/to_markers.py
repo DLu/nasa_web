@@ -20,7 +20,6 @@ def pts_cb(msg):
             pts.append( (pt[0], pt[1], pt[2]) )
             valid += 1
         total += 1  
-    print valid, total, float(valid)/total
 
     m = gen.marker(points=pts)
     pub.publish(m)
