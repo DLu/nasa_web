@@ -58,7 +58,7 @@
     });
   
     // Setup the marker client.
-    var markerClient = new ROS3D.MarkerClient({
+    var markerClient = new ROS3D.MarkerArrayClient({
       ros : ros,
       tfClient : tfClient,
       topic : '/r2/move_group/planned_path_visualization',
