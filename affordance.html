@@ -73,6 +73,14 @@
       loader: ROS3D.COLLADA_LOADER,
       path : MESH_URL
     });
+    
+    // Setup the marker client.
+    var markerClient = new ROS3D.MarkerClient({
+      ros : ros,
+      tfClient : tfClient,
+      topic : '/visualization_marker',
+      rootObject : viewer.scene
+    });
 
     make_buttons();
       var listener = new ROSLIB.Topic({
@@ -104,6 +112,7 @@
   <div id="urdf"></div>
   <div id="affordance_list"></div>
   <div id="controls"></div>
+  <div id="ee_box"></div>
   <div id="options"><label for="steps">Steps:</label><input id="steps" size="2" value="1"/><label for="execute">Execute on Plan</label><input id="execute" type="checkbox"/>
 </body>
 </html>

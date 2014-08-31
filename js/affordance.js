@@ -11,6 +11,8 @@ function on_check(name, value){
       + service1.name
       + ': '
       + result.success);
+      
+    setup_ee_box(result.ids, result.end_effectors, result.num_points);
   });
   }
 }
@@ -52,25 +54,54 @@ function populate_affordances(id, elements)
     }
 }
 
+var ees = [];
+
 function button(s) {
     var steps = parseInt(document.getElementById('steps').value);
     var eop = document.getElementById('execute').checked;
+    chosen_ees = [];
+    
+    for(i=0;i<ees.length;i++){
+      if(document.getElementById('ee_opt_' + ees[i]).checked){
+        chosen_ees.push(ees[i]);
+      }
+    }
      
-  var request = new ROSLIB.ServiceRequest({
-    affordances : ['Wheel'],
-    ids : [0],
-    type: s, 
-    end_effectors: ['left_hand', 'right_hand'],
-    steps: steps, 
-    execute: eop
-  });
+    var request = new ROSLIB.ServiceRequest({
+      affordances : ['Wheel'],
+      ids : [0],
+      type: s, 
+      end_effectors: chosen_ees,
+      steps: steps, 
+      execute: eop
+    });
 
-  service2.callService(request, function(result) {
-    console.log('Result for service call on '
-      + service2.name
-      + ': '
-      + result.success); } 
-  , function(err) { console.log('Err ' + err); });
+    service2.callService(request, function(result) {
+      console.log('Result for service call on '
+        + service2.name
+        + ': '
+        + result.success);
+      update_ee_box(result.ids, result.waypoints);  
+      } 
+      , function(err) { console.log('Err ' + err); });
 
 }
 
+function setup_ee_box(ids, end_effectors, num_points) {
+    s = "<table>";
+    for (i = 0; i < ids.length; i++) { 
+        s += "<tr><td>" + ids[i] + "<td>" + end_effectors[i] + "<td id=\"ee_n_" + ids[i] + "\">X</td><td>" + num_points[i];
+        s += "<td><input name=\"ee_opt_" + end_effectors[i] + "\" id=\"ee_opt_" + end_effectors[i] + "\" type=\"checkbox\" checked=\"checked\" />";
+    }
+    s += "</table>";
+    ees = end_effectors;
+    document.getElementById("ee_box").innerHTML = s;
+}
+
+function update_ee_box(ids, waypoints) {
+    for(var i=0; i<ids.length; i++){
+        var x = document.getElementById("ee_n_" + ids[i]);
+        x.innerHTML = waypoints[i];
+        
+    }
+}
