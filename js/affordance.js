@@ -88,7 +88,7 @@ function button(s) {
 }
 
 function setup_ee_box(ids, end_effectors, num_points) {
-    s = "<table>";
+    s = "<table><tr><th><th>name<th>@wp<th>#wps<th>cmd";
     for (i = 0; i < ids.length; i++) { 
         s += "<tr><td>" + ids[i] + "<td>" + end_effectors[i] + "<td id=\"ee_n_" + ids[i] + "\">X</td><td>" + num_points[i];
         s += "<td><input name=\"ee_opt_" + end_effectors[i] + "\" id=\"ee_opt_" + end_effectors[i] + "\" type=\"checkbox\" checked=\"checked\" />";

@@ -71,13 +71,23 @@
       path : MESH_URL
     });
     
-    // Setup the marker client.
+    // Setup the markers for the point cloud
     var markerClient = new ROS3D.MarkerClient({
       ros : ros,
       tfClient : tfClient,
       topic : '/visualization_marker',
       rootObject : viewer.scene
     });
+
+    // Setup the path viz marker client
+    var markerClient2 = new ROS3D.MarkerArrayClient({
+      ros : ros,
+      tfClient : tfClient, 
+      topic : '/r2/move_group/planned_path_visualization',
+      rootObject : viewer.scene,
+      path : MESH_URL
+   });
+      
 
     make_buttons();
       var listener = new ROSLIB.Topic({
