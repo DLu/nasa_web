@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<script src="http://cdn.robotwebtools.org/threejs/current/three.min.js"></script>
+<script src="http://cdn.robotwebtools.org/ColladaAnimationCompress/current/ColladaLoader2.min.js"></script>
+<script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+<script src="http://cdn.robotwebtools.org/ros3djs/current/ros3d.min.js"></script>
+<script src="js/config.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+  /**
+   * Setup all visualization elements when the page is loaded.
+   */
+  function init() {
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros({
+      url : 'ws://' + IP + ':9090'
+    });
+
+    // Create the main viewer.
+    var viewer = new ROS3D.Viewer({
+      divID : 'urdf',
+      width : 800,
+      height : 600,
+      antialias : true
+    });
+
+    // Add a grid.
+    viewer.addObject(new ROS3D.Grid());
+
+    // Setup a client to listen to TFs.
+    var tfClient = new ROSLIB.TFClient({
+      ros : ros,
+      angularThres : 0.01,
+      transThres : 0.01,
+      rate : 10.0,
+      fixedFrame : '/world'
+    });
+
+    // Setup Kinect DepthCloud stream
+    depthCloud = new ROS3D.DepthCloud({
+      url : 'http://'+window.location.hostname + ':9999/streams/depthcloud_encoded.webm',
+      f : 525.0
+    });
+    depthCloud.startStream();
+
+    // Create Kinect scene node
+    var kinectNode = new ROS3D.SceneNode({
+      frameID : '/r2/simulated_asus_depth_frame',
+      tfClient : tfClient,
+      object : depthCloud
+    });
+    viewer.scene.add(kinectNode);
+  }
+</script>
+</head>
+
+<body onload="init()">
+  <div id="urdf"></div>
+</body>
+</html>
