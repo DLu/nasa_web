@@ -1,0 +1,11 @@
+<launch>
+     <arg name="gui" default="False"/>
+     
+     <!-- Launch R2 in RWT (with interactive markers) -->
+     <include file="$(find nasa_web)/launch/r2_interactive_rwt.launch">
+        <arg name="gui" value="$(arg gui)"/>
+     </include>
+
+     <include file="$(find affordance_ros_control)/launch/affordance_ros_control.launch" />
+</launch>
+
