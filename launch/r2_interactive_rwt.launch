@@ -1,0 +1,23 @@
+<launch>
+     <arg name="gui" default="False"/>
+     
+     <!-- Launch R2 in Gazebo -->
+     <include file="$(find r2_gazebo)/launch/r2_gazebo.launch">
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="valve" value="true"/>
+     </include>
+
+     <!-- The following two includes are the equivalent of 
+            roslaunch r2_moveit_config moveit_planning_execution.launch -->
+     <include file="$(find r2_moveit_config)/launch/move_group.launch">
+      <arg name="publish_monitored_planning_scene" value="true" />
+     </include>
+     <include file="$(find r2_moveit_config)/launch/moveit_rviz.launch" if="$(arg gui)"/>
+
+     <!-- Robot Teleop -->
+     <include file="$(find nasa_robot_teleop)/launch/r2.launch"/>
+
+     <!-- RWT -->
+     <include file="$(find nasa_web)/launch/r2_rwt.launch"/>
+</launch>
+
