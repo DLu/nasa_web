@@ -7,5 +7,10 @@
      </include>
 
      <include file="$(find affordance_ros_control)/launch/affordance_ros_control.launch" />
+     
+     <node name="pc_to_markers" pkg="nasa_web" type="to_markers.py">
+         <param name="pc_topic" value="/r2/asus/depth/points2"/>
+     </node>
+     <include file="$(find nasa_web)/launch/pc.launch" />
 </launch>
 
