@@ -21,7 +21,7 @@ var buttons = {"start":"GO_TO_START", "left":"PLAY_BACKWARD", "rwnd":"STEP_BACKW
 
 function make_buttons()
 {
-    var path = "https://raw.githubusercontent.com/swhart115/affordance_templates/refactor/rviz_affordance_template_panel/resources/"
+    var path = "https://raw.githubusercontent.com/swhart115/affordance_templates/develop/rviz_affordance_template_panel/resources/"
     
     var s = "";
     for(b in buttons){
