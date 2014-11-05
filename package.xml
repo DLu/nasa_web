@@ -8,8 +8,25 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>easy_markers</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
   <run_depend>interactive_marker_proxy</run_depend>
   <run_depend>rosbridge_server</run_depend>
   <run_depend>tf2_web_republisher</run_depend>
+  <run_depend>easy_markers</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>affordance_ros_control</run_depend>
+  <run_depend>depthcloud_encoder</run_depend>
+  <run_depend>nasa_robot_teleop</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>r2_description</run_depend>
+  <run_depend>r2_gazebo</run_depend>
+  <run_depend>r2_moveit_config</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>ros_web_video</run_depend>
+  <run_depend>v1_description</run_depend>
+  <run_depend>xacro</run_depend>
 
 </package>
